@@ -6,7 +6,7 @@ import subprocess
 import requests
 
 URL = 'https://netbox8.ndc.aptportfolio.com'
-TOKEN = '3b9cd39db5c5fa04b3557cb426c984564b1cf17e'
+TOKEN = '<TOKEN>'
 FILTER_TAGS = ['AWX']
 headers = {
     'Accept': 'application/json ; indent=4',
