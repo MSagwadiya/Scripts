@@ -1,0 +1,27 @@
+import pynetbox
+import csv
+import pandas as pd
+import requests
+requests.packages.urllib3.disable_warnings()
+
+URL = 'https://netbox8.ndc.aptportfolio.com'
+TOKEN='<TOKEN>'
+headers = {
+    'Accept': 'application/json ; indent=4',
+    'Authorization': 'Token %s' % (TOKEN),
+}
+device_url = URL + '/api/dcim/devices'
+
+df = pd.read_csv('mycsv.csv')
+serial = df['SERIAL']
+asset = df['ASSET']
+for i in range(len(serial)):
+    print(i,serial[i],asset[i])
+    nb = pynetbox.api(url=URL, token=TOKEN)
+    nb.http_session.verify = False
+    device = nb.dcim.devices.get(serial=serial[i])
+    if device != None:
+        update = device.update({
+            'asset_tag': asset[i]
+        })
+        
